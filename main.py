@@ -1,9 +1,12 @@
 import random, time
 
 def generate_question():
+    num_range_min = 0
+    num_range_max = 15
+    
     total = 0
     for i in range(4):
-        number = random.randint(0, 15)
+        number = random.randint(num_range_min, num_range_max)
         print(f"+\t{number}")
         total += number
 
