@@ -36,7 +36,7 @@ def prompt_question(number, question):
             print(f"+\t{question['numbers'][i]}")
 
     time_start = time.time()
-    answer = input("----------\ntotal:\t")
+    answer = input("-----------\ntotal:\t")
     time_end = time.time()
     time_taken = (time_end - time_start).__round__(2)
     print(f"time:\t{time_taken}s")
@@ -55,11 +55,12 @@ if __name__ == "__main__":
         { "name": "quick addition", "num_questions": 10, "num_length": 4, "num_range_min": 0, "num_range_max": 15 },
     ]
 
+    # preset handling
     print_bold("jack")
     print("\nselect a preset:")
     for i in range(len(default_presets)):
         print(f"{i+1}. {default_presets[i]['name']}")
-    print("----------\n0. Custom")
+    print("-----------\n0. Custom")
     preset = int(input("\npreset: "))
 
     if preset > len(default_presets): print_red("invalid preset")
@@ -73,11 +74,13 @@ if __name__ == "__main__":
     else:
         questions = generate_questions(default_presets[preset-1]["num_questions"], default_presets[preset-1]["num_length"], default_presets[preset-1]["num_range_min"], default_presets[preset-1]["num_range_max"])
 
+    # prompt questions
     for i in range(len(questions)): 
         answer, time_taken = prompt_question(i+1, questions[i])
         questions[i]["answer"] = answer
         questions[i]["time"] = time_taken
 
+    # results
     time_average = sum([question["time"] for question in questions]) / len(questions)
     percentage_correct = (sum([question["correct"] for question in questions]) / len(questions)) * 100
 
