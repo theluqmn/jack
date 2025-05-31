@@ -9,7 +9,9 @@ def generate_questions(num_questions, num_length, num_range_min, num_range_max):
         for i in range(num_length):
             number = random.randint(num_range_min, num_range_max)
             question["numbers"].append(number)
-            answer += number
+            question["answer"] += number
+        
+        questions.append(question)
 
     return questions
 
@@ -36,8 +38,9 @@ def prompt_question(number, question):
     return answer, time_taken
 
 if __name__ == "__main__":
-    questions = generate_questions(10, 4, 0, 15)
-    for i in range(len(questions)):
+    questions = generate_questions(1, 4, 0, 15)
+
+    for i in range(len(questions)): 
         answer, time_taken = prompt_question(i+1, questions[i])
         questions[i]["answer"] = answer
         questions[i]["time"] = time_taken
