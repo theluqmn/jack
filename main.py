@@ -36,6 +36,19 @@ for i in range(10):
     stats["total"].append(total)
     stats["time"].append(time_taken)
 
+def generate_questions(num_questions, num_length, num_range_min, num_range_max):
+    questions = []
+
+    for i in range(num_questions):
+        question = { "numbers": [], "answer": 0 }
+
+        for i in range(num_length):
+            number = random.randint(num_range_min, num_range_max)
+            question["numbers"].append(number)
+            answer += number
+
+    return questions
+
 print("\nResults:")
 time_average = sum(stats["time"]) / len(stats["time"])
 percentage_correct = (stats["answer"].count(True) / len(stats["answer"])) * 100
