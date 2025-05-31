@@ -1,5 +1,15 @@
 import random, time
 
+def print_red(text):
+    print(f"\033[31m{text}\033[0m")
+
+def print_green(text):
+    print(f"\033[32m{text}\033[0m")
+
+def print_bold(text):
+    print(f"\033[1m{text}\033[0m")
+
+# generates questions according to parameters
 def generate_questions(num_questions, num_length, num_range_min, num_range_max):
     questions = []
 
@@ -15,28 +25,31 @@ def generate_questions(num_questions, num_length, num_range_min, num_range_max):
 
     return questions
 
+# handles prompting of questions
 def prompt_question(number, question):
-    print(f"\nquestion {number}:")
+    print_bold(f"\nquestion {number}:")
 
     for i in range(len(question["numbers"])):
         if i < 0:
             print(f"-\t{question['numbers'][i]}")
         else:
             print(f"+\t{question['numbers'][i]}")
+
     time_start = time.time()
     answer = input("----------\ntotal:\t")
     time_end = time.time()
     time_taken = (time_end - time_start).__round__(2)
-    print(f"Time taken: {time_taken}s")
+    print(f"time:\t{time_taken}s")
 
     if answer == str(question["answer"]):
-        print("correct!")
+        print_green("correct!")
         question["correct"] = True
     else:
-        print(f"incorrect!\nanswer: {question['answer']}")
+        print_red(f"incorrect\nanswer: {question['answer']}")
 
     return answer, time_taken
 
+# main function
 if __name__ == "__main__":
     questions = generate_questions(1, 4, 0, 15)
 
