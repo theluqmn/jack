@@ -51,7 +51,27 @@ def prompt_question(number, question):
 
 # main function
 if __name__ == "__main__":
-    questions = generate_questions(1, 4, 0, 15)
+    default_presets = [
+        { "name": "quick addition", "num_questions": 10, "num_length": 4, "num_range_min": 0, "num_range_max": 15 },
+    ]
+
+    print_bold("jack")
+    print("\nselect a preset:")
+    for i in range(len(default_presets)):
+        print(f"{i+1}. {default_presets[i]['name']}")
+    print("----------\n0. Custom")
+    preset = int(input("\npreset: "))
+
+    if preset > len(default_presets): print_red("invalid preset")
+
+    if preset == 0:
+        num_questions = int(input("number of questions: "))
+        num_length = int(input("number length: "))
+        num_range_min = int(input("minimum number: "))
+        num_range_max = int(input("maximum number: "))
+        questions = generate_questions(1, 4, 0, 15)
+    else:
+        questions = generate_questions(default_presets[preset-1]["num_questions"], default_presets[preset-1]["num_length"], default_presets[preset-1]["num_range_min"], default_presets[preset-1]["num_range_max"])
 
     for i in range(len(questions)): 
         answer, time_taken = prompt_question(i+1, questions[i])
