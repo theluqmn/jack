@@ -105,6 +105,12 @@ def load_profile(id):
                 conn.execute(f"SELECT * FROM {id}", (id,))
                 return conn.fetchone()
 
+def save_profile(id, questions, preset):
+    with sqlite3.connect("data/stats.db") as conn:
+        with conn:
+            conn.execute("CREATE TABLE IF NOT EXISTS test (id INTEGER PRIMARY KEY AUTOINCREMENT, questions TEXT, preset INTEGER)")
+            conn.execute("INSERT INTO test (questions, preset) VALUES (?, ?)", (str(questions), preset))
+
 # main function
 if __name__ == "__main__":
     clear()
@@ -131,12 +137,14 @@ if __name__ == "__main__":
         print_bold("select an action:")
         print("[1] run test\n[2] view stats")
 
-        action, preset = int(input("\n-> "))
-
+        action = int(input("\n-> "))
 
         clear()
         if action == 1:
-            questions = test()
+            data = test()
+            questions = data[0]
+            preset = data[1]
+            save_profile(profile, questions, preset)
         elif action == 2:
             print_bold(f"jack - {profiles[profiles-1]} stats")
             print("-----------\n")
