@@ -1,4 +1,7 @@
-import random, time, sqlite3
+import random, time, sqlite3, os
+
+def clear():
+    os.system("cls" if os.name == "nt" else "clear")
 
 def print_red(text):
     print(f"\033[31m{text}\033[0m")
@@ -87,6 +90,18 @@ def test():
     print(f"Average time: {time_average}s")
     print(f"Percentage correct: {percentage_correct}% ({sum([question['correct'] for question in questions])}/{len(questions)})")
 
+def load_profile(id):
+    with sqlite3.connect("data/stats.db") as conn:
+        with conn:
+            conn.execute("CREATE TABLE IF NOT EXISTS test (id INTEGER PRIMARY KEY AUTOINCREMENT, questions TEXT, preset INTEGER)")
+
+            if id == 0:
+                cursor = conn.execute("SELECT name FROM sqlite_master WHERE type='table';")
+                return [table[0] for table in cursor.fetchall()]
+            else:
+                conn.execute(f"SELECT * FROM {id}", (id,))
+                return conn.fetchone()
+
 # main function
 if __name__ == "__main__":
     print_bold("jack")
@@ -95,5 +110,13 @@ if __name__ == "__main__":
 
     # load a profile
     print_bold("select a profile to load:")
+    profiles = load_profile(0)
 
-    # load profile analytics
+    for i in range(len(profiles)):
+        if profiles[i] == "sqlite_sequence": continue
+        print(f"{i+1}. {profiles[i]}")
+    
+    profile = int(input("\nprofile: "))
+    if profile > len(profiles): print_red("invalid profile")
+
+    
