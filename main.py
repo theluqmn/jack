@@ -1,4 +1,4 @@
-import random, time
+import random, time, sqlite3
 
 def print_red(text):
     print(f"\033[31m{text}\033[0m")
@@ -49,8 +49,7 @@ def prompt_question(number, question):
 
     return answer, time_taken
 
-# main function
-if __name__ == "__main__":
+def test():
     default_presets = [
         { "name": "quick addition", "num_questions": 10, "num_length": 4, "num_range_min": 0, "num_range_max": 15 },
     ]
@@ -87,3 +86,14 @@ if __name__ == "__main__":
     print("\nResults:")
     print(f"Average time: {time_average}s")
     print(f"Percentage correct: {percentage_correct}% ({sum([question['correct'] for question in questions])}/{len(questions)})")
+
+# main function
+if __name__ == "__main__":
+    print_bold("jack")
+    print("A CLI-based mathematical game for you to train your basic arithmetic skills")
+    print("-----------\n")
+
+    # load a profile
+    print_bold("select a profile to load:")
+
+    # load profile analytics
