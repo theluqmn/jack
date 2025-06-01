@@ -53,6 +53,7 @@ def prompt_question(number, question):
     return answer, time_taken
 
 def test():
+    questions = []
     default_presets = [
         { "name": "quick addition", "num_questions": 10, "num_length": 4, "num_range_min": 0, "num_range_max": 15 },
     ]
@@ -61,8 +62,8 @@ def test():
     print_bold("jack")
     print("\nselect a preset:")
     for i in range(len(default_presets)):
-        print(f"{i+1}. {default_presets[i]['name']}")
-    print("-----------\n0. Custom")
+        print(f"[{i+1}] {default_presets[i]['name']}")
+    print("-----------\n[0] custom")
     preset = int(input("\npreset: "))
 
     if preset > len(default_presets): print_red("invalid preset")
@@ -90,6 +91,8 @@ def test():
     print(f"Average time: {time_average}s")
     print(f"Percentage correct: {percentage_correct}% ({sum([question['correct'] for question in questions])}/{len(questions)})")
 
+    return questions, preset
+
 def load_profile(id):
     with sqlite3.connect("data/stats.db") as conn:
         with conn:
@@ -104,6 +107,7 @@ def load_profile(id):
 
 # main function
 if __name__ == "__main__":
+    clear()
     print_bold("jack")
     print("A CLI-based mathematical game for you to train your basic arithmetic skills")
     print("-----------\n")
@@ -114,9 +118,29 @@ if __name__ == "__main__":
 
     for i in range(len(profiles)):
         if profiles[i] == "sqlite_sequence": continue
-        print(f"{i+1}. {profiles[i]}")
+        print(f"[{i+1}] {profiles[i]}")
     
     profile = int(input("\nprofile: "))
     if profile > len(profiles): print_red("invalid profile")
 
-    
+    # program loop
+    while True:
+        clear()
+        print_bold(f"jack - {profiles[profile-1]}")
+        print("-----------\n")
+        print_bold("select an action:")
+        print("[1] run test\n[2] view stats")
+
+        action, preset = int(input("\n-> "))
+
+
+        clear()
+        if action == 1:
+            questions = test()
+        elif action == 2:
+            print_bold(f"jack - {profiles[profiles-1]} stats")
+            print("-----------\n")
+            time.sleep(1)
+        else:
+            print_red("invalid action")
+            time.sleep(1)
