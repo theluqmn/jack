@@ -5,4 +5,11 @@
 
 A CLI-based mathematical game for you to train your basic arithmetic skills, with presets and customisable options as well as time tracking to help you improve your speed and accuracy.
 
+## Features
+
+- a profile system, keep track of your performance
+- preset system with customisable options
+- time tracking to help you improve your speed and accuracy
+- some colors on the console
+
 I made this for me to train my brain to compute faster and more accurately, and I hope it can help you too. Let's all improve our mental arithmetic skills. Name inspired by my friend Jack who is a math genius.
