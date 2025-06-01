@@ -56,6 +56,7 @@ def test():
     questions = []
     default_presets = [
         { "name": "quick addition", "num_questions": 10, "num_length": 4, "num_range_min": 0, "num_range_max": 15 },
+        { "name": "swift", "num_questions": 5, "num_length": 4, "num_range_min": -15, "num_range_max": 15 }
     ]
 
     # preset handling
