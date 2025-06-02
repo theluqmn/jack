@@ -146,6 +146,7 @@ if __name__ == "__main__":
             questions = data[0]
             preset = data[1]
             save_profile(profile, questions, preset)
+            time.sleep(5)
         elif action == 2:
             print_bold(f"jack - {profiles[profiles-1]} stats")
             print("-----------\n")
