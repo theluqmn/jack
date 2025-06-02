@@ -74,7 +74,7 @@ def test():
         num_length = int(input("number length: "))
         num_range_min = int(input("minimum number: "))
         num_range_max = int(input("maximum number: "))
-        questions = generate_questions(1, 4, 0, 15)
+        questions = generate_questions(num_questions, num_length, num_range_min, num_range_max)
     else:
         questions = generate_questions(default_presets[preset-1]["num_questions"], default_presets[preset-1]["num_length"], default_presets[preset-1]["num_range_min"], default_presets[preset-1]["num_range_max"])
 
